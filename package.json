@@ -13,6 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@simonhg/waterline-to-graphql": "0.0.8",
+    "apollo-server-express": "^1.3.6",
     "aws-serverless-express": "^2.2.0",
     "axios": "^0.16.1",
     "body-parser": "^1.17.1",

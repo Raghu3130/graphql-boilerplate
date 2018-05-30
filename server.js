@@ -1,6 +1,13 @@
-'use strict';
+import express from 'express';
+import bodyParser from 'body-parser';
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 
-const app = require('./src/app');
+// let's import the schema file we just created
+import  schemagen from './src/schemagen';
+let schema = new  schemagen();
+const app = express();
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema: schema.generate() }));
+app.get('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 // let's set the port on which the server will run
 app.set( 'port', 1337 );
