@@ -4,6 +4,6 @@ import schema from './schema';
 
 export {
   schema,
-  queries,
+   queries,
   mutations
 };

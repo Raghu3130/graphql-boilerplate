@@ -1,11 +1,10 @@
 
-const GraphQL = require('graphql');
-const {
+import{
 	GraphQLList,
 	GraphQLString,
 	GraphQLNonNull,
 	GraphQLObjectType
-} = GraphQL;
+} from 'graphql'
 
 
 
@@ -19,11 +18,10 @@ class database{
   }
 
   queries(type, inputType, model) {
-    console.log(model.schema);
     let schema = model.schema;
     let modelName = schema.name;
     return new GraphQLObjectType({
-      name: [modelName, 'Database'].join(''),
+      name: [modelName, 'session_query'].join(''),
       fields: {
         Addone:{
           type: new GraphQLList(schema),
@@ -56,7 +54,7 @@ class database{
     let schema = model.schema;
     let modelName = schema.name;
     return new GraphQLObjectType({
-      name: [modelName, 'database_mutation'].join(''),
+      name: [modelName, 'session_mutation'].join(''),
       fields: {
         Addone:{
           type: new GraphQLList(schema),
