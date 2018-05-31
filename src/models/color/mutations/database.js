@@ -1,4 +1,3 @@
-'use strict';
 
 const GraphQL = require('graphql');
 const {

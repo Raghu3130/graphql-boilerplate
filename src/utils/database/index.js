@@ -6,8 +6,9 @@ const {
 	GraphQLNonNull,
 	GraphQLObjectType
 } = GraphQL;
-
-
+import generateTypes from '../../libs/generateTypes';
+import {map,get} from 'lodash'
+import { POINT_CONVERSION_COMPRESSED } from 'constants';
 
 class database{
   constructor(){
@@ -15,44 +16,82 @@ class database{
   }
 
   addOneResolver(args){
-    return "error";
+    
+    return new Promise((resolve,reject) =>{
+      const id = get(args,'find.id');
+      const data=[{
+        id:1,
+        name:"green",
+        code:"#34433",
+        preview:"dfdf"
+      },
+      {
+        id:2,
+        name:"red",
+        code:"#333",
+        preview:"dfdf"
+      },
+      {
+        id:3,
+        name:"blacl",
+        code:"#344",
+        preview:"dfdf"
+      }
+    ];
+    map(data,i =>{
+      
+      if(i.id ==id){
+        
+        resolve(i);
+      }
+    })
+    })
+    
+
+    
+    
+    
   }
 
   queries(type, inputType, model) {
-    console.log(model.schema);
+    let self=this;
     let schema = model.schema;
     let modelName = schema.name;
+    let inputtype=generateTypes(schema,'Find')
     return new GraphQLObjectType({
       name: [modelName, 'Database'].join(''),
       fields: {
         Addone:{
-          type: new GraphQLList(schema),
+          type: schema,
           args: {
-            subreddit: {
-              type: GraphQLString,
-              description: 'Please enter subreddit name',
+            find: {
+              type: inputtype,
             }
           },
-          resolve(parent, args, context, info) {
-            return this.addOneResolver(args);
+          resolve:(parent, args, context, info) => {
+             return self.addOneResolver(args).then(res =>{
+               
+               return res;
+             })
           }
         },
         Add:{
           type: new GraphQLList(schema),
           args: {
             subreddit: {
-              type: GraphQLString,
+              type: inputtype,
               description: 'Please enter subreddit name',
             }
           },
           resolve(parent, args, context, info) {
-            return this.addOneResolver(args);
+            return self.addOneResolver(args);
           }
         }
       }
     })
   };
   mutation(type, inputType, model) {
+    let self=this;
     let schema = model.schema;
     let modelName = schema.name;
     return new GraphQLObjectType({
@@ -67,7 +106,7 @@ class database{
             }
           },
           resolve(parent, args, context, info) {
-            return this.addOneResolver(args);
+            return self.addOneResolver(args);
           }
         },
         Add:{
@@ -79,7 +118,7 @@ class database{
             }
           },
           resolve(parent, args, context, info) {
-            return this.addOneResolver(args);
+            return self.addOneResolver(args);
           }
         }
       }

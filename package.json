@@ -18,7 +18,8 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "express-graphql": "^0.6.4",
-    "graphql": "^0.9.6"
+    "graphql": "^0.9.6",
+    "lodash": "^4.17.10"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
