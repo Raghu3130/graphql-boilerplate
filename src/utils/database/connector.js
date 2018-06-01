@@ -8,15 +8,13 @@ class PostgresqlDatabaseAdapter {
 
 	constructor(connection) {
     this.client = knex({
-      client: 'pg',
-      connection: {
-        host : connection.host || 'localhost',
-        user : connection.user || 'root',
-        password : connection.password || '',
-        database : connection.database || 'pgsql',
-        port: connection.port || '5432'
-      },
-      debug: process.env['NODE_ENV'] === 'development' ? true : false
+			client: 'mysql',
+			connection: {
+				host : '127.0.0.1',
+				user : null,
+				password : null,
+				database : 'todo_board'
+			}
     });
 	}
 

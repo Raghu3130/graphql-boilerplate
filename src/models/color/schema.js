@@ -10,7 +10,11 @@ import {
 const ColorType = new GraphQLObjectType({
 	name: 'Color',
 	description: 'Color details ',
-
+	datasource : {
+		collection: "Color", //aka tableName
+		timestamps: true,
+		skip_deleted: true
+	  },	
 	fields: () => ({
 		id: {
 			type: GraphQLID,

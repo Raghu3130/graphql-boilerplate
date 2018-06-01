@@ -8,49 +8,15 @@ const {
 } = GraphQL;
 import generateTypes from '../../libs/generateTypes';
 import {map,get} from 'lodash'
-import { POINT_CONVERSION_COMPRESSED } from 'constants';
+import Database from './database'
 
 class database{
   constructor(){
 
   }
 
-  addOneResolver(args){
-    
-    return new Promise((resolve,reject) =>{
-      const id = get(args,'find.id');
-      const data=[{
-        id:1,
-        name:"green",
-        code:"#34433",
-        preview:"dfdf"
-      },
-      {
-        id:2,
-        name:"red",
-        code:"#333",
-        preview:"dfdf"
-      },
-      {
-        id:3,
-        name:"blacl",
-        code:"#344",
-        preview:"dfdf"
-      }
-    ];
-    map(data,i =>{
-      
-      if(i.id ==id){
-        
-        resolve(i);
-      }
-    })
-    })
-    
-
-    
-    
-    
+  addOneResolver(datasource,args){
+    return Database.one(datasource,args);
   }
 
   queries(type, inputType, model) {
@@ -69,7 +35,7 @@ class database{
             }
           },
           resolve:(parent, args, context, info) => {
-             return self.addOneResolver(args).then(res =>{
+             return self.addOneResolver(schema.datasource,args).then(res =>{
                
                return res;
              })

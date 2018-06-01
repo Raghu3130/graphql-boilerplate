@@ -76,7 +76,7 @@ class Database {
 				row._created_at = moment.utc().format();
 				row._updated_at = moment.utc().format();
 			}
-
+			
 			if (mode === 'update') {
 				row._updated_at = moment.utc().format();
 			}
