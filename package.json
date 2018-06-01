@@ -1,8 +1,8 @@
 {
-  "name": "Todo-board",
-  "version": "1.0.0",
-  "description": "GraphQL Application for tot board",
-  "main": "index.js",
+  "name": "todoboard",
+  "version": "0.0.1",
+  "description": "GraphQL Application for todo board",
+  "main": "server.js",
   "scripts": {
     "server": "babel-node --presets es2015,stage-2 server.js"
   },
@@ -13,14 +13,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@simonhg/waterline-to-graphql": "0.0.8",
     "apollo-server-express": "^1.3.6",
-    "aws-serverless-express": "^2.2.0",
     "axios": "^0.16.1",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "express-graphql": "^0.6.4",
-    "graphql": "^0.9.6"
+    "flat": "^4.0.0",
+    "graphql": "^0.9.6",
+    "knex": "^0.14.6",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.1",
+    "mysql": "^2.15.0",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -9,10 +9,13 @@ import {
 
 const ColorType = new GraphQLObjectType({
 	name: 'Color',
-	description: 'Color details ',
-
+	description: {
+		collection: "Color", //aka tableName
+		timestamps: true,
+		skip_deleted: true
+	  },
 	fields: () => ({
-		id: {
+		_id: {
 			type: GraphQLID,
 			description: 'ID of the Color',
 		},
