@@ -4,15 +4,15 @@ import { map, keys, pickBy, values, mapValues, mapKeys } from 'lodash';
 import knex from 'knex';
 import uuid from 'uuid';
 
-class PostgresqlDatabaseAdapter {
+class DatabaseAdapter {
 
 	constructor(connection) {
     this.client = knex({
 			client: 'mysql',
 			connection: {
 				host : '127.0.0.1',
-				user : null,
-				password : null,
+				user : 'root',
+				password : 'root',
 				database : 'todo_board'
 			}
     });
@@ -130,7 +130,7 @@ class PostgresqlDatabaseAdapter {
 			})
 		}
 
-		// add distinct columns
+		// add distinct columargsns
 		if (distinct && Array.isArray(distinct)) {
 			distinct.map(distinct => {
 				queryBuilder.distinct(distinct);
@@ -246,7 +246,8 @@ class PostgresqlDatabaseAdapter {
 					}
 				})
         .then((res) => {
-          resolve(res[0].count);
+					let count =res[0];
+          resolve(count);
         })
         .catch((err) => {
           reject(err);
@@ -351,9 +352,10 @@ class PostgresqlDatabaseAdapter {
         row._id = uuid.v4();
         return row;
       })
-
+			console.log("rows",rows);
       this.client(tableName).insert(rows)
-        .then(res => resolve(res.rowCount))
+        .then(res => {
+					return resolve(rows.length)})
         .catch(reject);
 		});
 		return dbPromise;
@@ -373,4 +375,4 @@ class PostgresqlDatabaseAdapter {
 	}
 }
 
-export default PostgresqlDatabaseAdapter;
+export default DatabaseAdapter;

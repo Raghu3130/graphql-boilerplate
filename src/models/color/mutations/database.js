@@ -12,6 +12,7 @@ const Colortype = require('../schema');
 // import the Post resolver we created
 const ColorResolver = require('../../../graphql/resolvers/Color');
 export default {
+	name:"custom",
 	type: new GraphQLList(Colortype),
 	args: {
 		subreddit: {

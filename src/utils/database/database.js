@@ -8,12 +8,14 @@ class Database {
 
 	static init({ config }) {
 		this.config = config;
-		this.connections = {};
+		this.connections = {
+			dev:{}
+		};
 	}
 
 	static getConnection = (name) => {
 		let newConnection = new connector();
-		Database.connections['dev'] = newConnection;
+		
 		return newConnection;
 	}
 
@@ -59,6 +61,7 @@ class Database {
 	}
 
 	static one = (datasource, args) => {
+		console.log("datasouce",datasource);
 		let dbConnection = Database.getConnection(datasource.connection);
 		return dbConnection.one(datasource, args);
 	}

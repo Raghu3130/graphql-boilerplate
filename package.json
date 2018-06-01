@@ -2,7 +2,7 @@
   "name": "todoboard",
   "version": "0.0.1",
   "description": "GraphQL Application for todo board",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "server": "babel-node --presets es2015,stage-2 server.js"
   },
@@ -23,6 +23,7 @@
     "knex": "^0.14.6",
     "lodash": "^4.17.10",
     "moment": "^2.22.1",
+    "mysql": "^2.15.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
