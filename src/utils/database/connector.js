@@ -328,12 +328,12 @@ class DatabaseAdapter {
 		let dbPromise = new Promise((resolve, reject) => {
       let tableName = datasource.table || datasource.collection;
 
-      row._id = uuid.v4();
+      row.id = uuid.v4();
 
       this.client(tableName).insert(row)
         .then((res) => {
           const find = {
-            _id: row._id
+            id: row.id
           };
 
           return this.one(datasource, { find })
