@@ -6,16 +6,19 @@ const {
 	GraphQLNonNull,
   GraphQLObjectType,
   GraphQLInt,
-  GraphQLBoolean
+  GraphQLBoolean,
+  GraphQLID
 } = GraphQL;
 import generateTypes from '../../libs/generateTypes';
 import {map,get} from 'lodash'
 import Database from './database'
 
+
 class database{
   constructor(){
 
   }
+  
 
   oneResolver(schema,inputType){
     return {
@@ -79,6 +82,26 @@ class database{
       }
     }
   }
+
+  updateResolvser(schema,inputType,Findtype){
+    return {
+      type: GraphQLBoolean,
+      args: {
+        find: {
+          type: Findtype,
+        },
+        input: {
+          type: inputType,
+        }
+      },
+      resolve:(parent, args, context, info) => {
+        let {input,find} = args;
+          return Database.update(schema.description,find,input,args).then(res =>{
+            return res;
+          })
+      }
+    }
+  }
   addManyResolvser(schema,inputType){
     return {
       type: GraphQLInt,
@@ -96,12 +119,12 @@ class database{
       }
     }
   }
- deleteResolver(schema,inputType){
+ deleteResolver(schema,inputType,Findtype){
     return {
       type: GraphQLBoolean,
       args: {
         find: {
-          type: inputType,
+          type: Findtype,
         }
       },
       resolve:(parent, args, context, info) => {
@@ -112,12 +135,12 @@ class database{
       }
     }
   }
-  destroyResolver(schema,inputType){
+  destroyResolver(schema,inputType,Findtype){
     return {
       type: GraphQLBoolean,
       args: {
         find: {
-          type: inputType,
+          type: Findtype,
         }
       },
       resolve:(parent, args, context, info) => {
@@ -133,7 +156,8 @@ class database{
     let self=this;
     let schema = model.schema;
     let modelName = schema.name;
-    let findType=generateTypes(schema,'Find')
+    let findType=generateTypes(schema,'FindQuery');
+
     return new GraphQLObjectType({
       name: [modelName, '_database_query'].join(''),
       fields: {
@@ -147,14 +171,17 @@ class database{
     let self=this;
     let schema = model.schema;
     let modelName = schema.name;
-    let inputtype=generateTypes(schema,'Input')
+    let inputtype=generateTypes(schema,'Input');
+    let Findtype=generateTypes(schema,'FindMutate');
+
     return new GraphQLObjectType({
       name: [modelName, '_database_mutation'].join(''),
       fields: {
         create:this.addResolvser(schema,inputtype),
         createMany:this.addManyResolvser(schema,inputtype),
-        delete:this.deleteResolver(schema,inputtype),
-        destroy:this.destroyResolver(schema,inputtype)
+        delete:this.deleteResolver(schema,inputtype,Findtype),
+        destroy:this.destroyResolver(schema,inputtype,Findtype),
+        update:this.updateResolvser(schema,inputtype,Findtype)
       }
     })
   };

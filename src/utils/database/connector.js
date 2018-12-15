@@ -8,12 +8,12 @@ class DatabaseAdapter {
 
 	constructor(connection) {
     this.client = knex({
-			client: 'mysql',
+			client: 'pg',
 			connection: {
 				host : '127.0.0.1',
-				user : 'root',
-				password : 'root',
-				database : 'todo_board'
+				user : 'postgres',
+				password : '1234',
+				database : 'test'
 			}
     });
 	}

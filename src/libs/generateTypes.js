@@ -13,6 +13,7 @@ function getValue(type,name){
   if(name === 'Input'){
     delete data.id;
   }
+  // console.log(data,name);
   return data;
   
 }

@@ -1,8 +1,4 @@
-import * as color from'./color'
- import * as user from './User'
-import * as task from './task'
+import * as product from'./product'
 export {
-  color,
-   user,
-   task
+  product
 }
